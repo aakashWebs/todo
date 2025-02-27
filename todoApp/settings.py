@@ -73,13 +73,28 @@ WSGI_APPLICATION = 'todoApp.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+print('Password==>',os.environ.get('DATABASE_PASSWORD'))
+
+import os
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DATABASE_NAME'),
+        'USER': os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'HOST': os.getenv('DATABASE_HOST'),
+        'OPTIONS': {
+            'options': '-c timezone=utc',
+            'connect_timeout': 10,  # Optional: Set a connection timeout
+        },
+
+
+        'PORT': os.getenv('DATABASE_PORT'),
     }
 }
+
+
 
 
 # Password validation
@@ -106,7 +121,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Dhaka'
+TIME_ZONE = 'UTC'
+
 
 USE_I18N = True
 

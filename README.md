@@ -1,49 +1,48 @@
-# django-todo
-A simple todo app built with django
+# Django Todo App
 
-![todo App](https://raw.githubusercontent.com/shreys7/django-todo/develop/staticfiles/todoApp.png)
-### Setup
-Update the System
-```bash
-sudo apt-get update
-```
-To get this repository, run the following command inside your git enabled terminal
-```bash
-git clone https://github.com/yeshwanthlm/django-on-ec2.git
-```
-You will need django to be installed in you computer to run this app. Head over to https://www.djangoproject.com/download/ for the download guide
+A simple todo app built with Django.
 
-Download django usig pip
-```bash
-sudo apt install python3-pip -y
-```
-```bash
-pip install django
-```
-Once you have downloaded django, go to the cloned repo directory and run the following command
+## Setup
 
+### Prerequisites
+- Docker
+- Docker Compose
+
+### Running the Application
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd <repository-directory>
+   ```
+
+2. Build the Docker containers:
+   ```bash
+   docker-compose build
+   ```
+
+3. Run the application:
+   ```bash
+   docker-compose up
+   ```
+
+4. Access the application at `http://localhost:8000`.
+
+### Environment Variables
+You can set the following environment variables in the `docker-compose.yml` file:
+- `DATABASE_NAME`: Name of the PostgreSQL database.
+- `DATABASE_USER`: PostgreSQL user.
+- `DATABASE_PASSWORD`: Password for the PostgreSQL user.
+- `DATABASE_HOST`: Host for the PostgreSQL database (default is `db`).
+- `DATABASE_PORT`: Port for the PostgreSQL database (default is `5432`).
+
+### Migrations
+To apply migrations, you can run:
 ```bash
-python3 manage.py makemigrations
-```
-
-This will create all the migrations file (database migrations) required to run this App.
-
-Now, to apply this migrations run the following command
-```bash
-python3 manage.py migrate
-```
-
-One last step and then our todo App will be live. We need to create an admin user to run this App. On the terminal, type the following command and provide username, password and email for the admin user
-```bash
-python3 manage.py createsuperuser
-```
-
-That was pretty simple, right? Now let's make the App live. We just need to start the server now and then we can start using our simple todo App. Start the server by following command
-
-```bash
-python3 manage.py runserver
+docker-compose run web python manage.py migrate
 ```
 
-Once the server is hosted, head over to http://127.0.0.1:8000/todos for the App.
-
-Cheers and Happy Coding :)
+### Static Files
+To collect static files, run:
+```bash
+docker-compose run web python manage.py collectstatic
